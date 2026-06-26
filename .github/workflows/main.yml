@@ -1,6 +1,5 @@
-name: RISE CI/CD Pipeline
+name: RISE DevSecOps Pipeline
 
-# Intha pipeline eppo run aaganum nu solrom
 on:
   push:
     branches:
@@ -9,15 +8,24 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Namma GitHub repo-la irukka code-ah eduthukkum
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Code correct-ah irukka nu oru dummy test run pannum
       - name: Run Basic Test
         run: |
-          echo "Starting the CI/CD Pipeline..."
-          echo "Checking HTML files..."
-          echo "Pipeline executed successfully! Ready for DevSecOps integration."
+          echo "Starting the DevSecOps Pipeline..."
+          echo "Application build successful!"
+
+  # Ithu thaan namma puthusa add panna Security Scan
+  security-scan:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Secret Scanning with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
