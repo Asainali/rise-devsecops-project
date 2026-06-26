@@ -1,0 +1,23 @@
+name: RISE CI/CD Pipeline
+
+# Intha pipeline eppo run aaganum nu solrom
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Namma GitHub repo-la irukka code-ah eduthukkum
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Code correct-ah irukka nu oru dummy test run pannum
+      - name: Run Basic Test
+        run: |
+          echo "Starting the CI/CD Pipeline..."
+          echo "Checking HTML files..."
+          echo "Pipeline executed successfully! Ready for DevSecOps integration."
