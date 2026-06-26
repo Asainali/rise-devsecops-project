@@ -5,7 +5,6 @@ on:
     branches:
       - main
 
-# GitHub Pages deploy panna thevayana permissions
 permissions:
   contents: read
   pages: write
@@ -16,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Puthu version
       - name: Run Basic Test
         run: echo "Application build successful!"
 
@@ -25,13 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Puthu version
       - name: Secret Scanning with Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Puthusa add panna Deployment Stage! 🚀
   deploy-to-production:
     needs: security-scan
     runs-on: ubuntu-latest
@@ -40,13 +38,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Puthu version
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4  # Puthu version
       - name: Upload Artifacts
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3  # Puthu version
         with:
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4  # Puthu version
